@@ -30,20 +30,24 @@ export async function PATCH(
     }
 }
 
-export async function DELETE({params}:{params:Promise<{id:string}>}) {
-    try{
-        const {id} = await params;
-        const res = await prisma.note.delete({
-            where:{
-                id:id,
-            }
-        })
-        return NextResponse.json({
-            message:"Note is deleted"
-        })
-    }catch(err){
-        return NextResponse.json({
-            message:"Failed to delete Note"
-        })
-    }
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const res = await prisma.note.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return NextResponse.json({
+      message: "Note is deleted",
+    });
+  } catch (err) {
+    return NextResponse.json({
+      message: "Failed to delete Note",
+    });
+  }
 }
