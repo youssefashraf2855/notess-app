@@ -47,11 +47,11 @@ export default function Home() {
       </form>
      </div>
      <div className="mt-10">
-      <h2 className="">Notes</h2>
+      <h2 className="text-center">Notes</h2>
       {Array.isArray(notes) && notes.map((note) => (
   <div key={note.id}>
-    <h3 className="bg-red-500 text-center rounded-sm p-2 mb-5">{note.title}</h3>
-    <p className="bg-green-400 text-black p-1">{note.content}</p>
+    <h3 className="bg-red-500 text-center rounded-sm p-2 mb-5">Title: {note.title}</h3>
+    <p className="bg-green-400 text-black p-1">Content: {note.content}</p>
   </div>
 ))}
      </div>
