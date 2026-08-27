@@ -9,12 +9,27 @@ export async function GET() {
 }
 
 export async function POST(request:Request) {
-    const {title,content} = await request.json();
-    const note = await prisma.note.create({
-        data:{
-            title,
-            content
+    try{
+        const {title,content} = await request.json();
+        if (!title.trim() || !content.trim()) {
+            return NextResponse.json(
+                { message: "Title and content are required" },
+                { status: 400 }
+            );
         }
-    })
-    return NextResponse.json(note);
+        const note = await prisma.note.create({
+            data:{
+                title,
+                content
+            }
+        })
+        return NextResponse.json({
+            message:"Note Create Successfully.",
+            data:note
+        });
+    }catch(error){
+        return Response.json({
+            message:"Failed to create note"
+        })
+    }
 }

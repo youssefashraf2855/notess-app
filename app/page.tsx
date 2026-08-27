@@ -6,13 +6,14 @@ export default function Home() {
   const [title , setTitle]= useState("");
   const [content , setContent]= useState("");
   const [notes, setNotes] = useState<any[]>([]);
+  const [message,setMessage]=useState("");
   async function getNotes() {
     const response = await fetch("/api/notes");
     const data = await response.json();
     setNotes(data);
   }
   async function addNote() {
-    await fetch("/api/notes",{
+   const res= await fetch("/api/notes",{
       method:"POST",
       headers:{
         "Content-Type":"application/json",
@@ -22,6 +23,8 @@ export default function Home() {
         content
       })
     })
+    const result = await res.json();
+    setMessage(result.message);
     setTitle("")
     setContent("")
     getNotes()
@@ -44,18 +47,18 @@ export default function Home() {
             <button type="submit" className="w-full py-2 px-4 bg-white text-black font-semibold rounded-md hover:bg-zinc-200 transition-colors text-sm disabled:opacity-50">
             Add Note
           </button>
+          <p>{message}</p>
       </form>
      </div>
      <div className="mt-10">
-      <h2 className="text-center">Notes</h2>
+      <h2 className="text-center mb-3">Notes</h2>
       {Array.isArray(notes) && notes.map((note) => (
   <div key={note.id}>
-    <h3 className="bg-red-500 text-center rounded-sm p-2 mb-5">Title: {note.title}</h3>
+    <h3 className="bg-red-500 text-center rounded-sm p-2 ">Title: {note.title}</h3>
     <p className="bg-green-400 text-black p-1">Content: {note.content}</p>
   </div>
 ))}
      </div>
-     
     </div>
   );
 }
