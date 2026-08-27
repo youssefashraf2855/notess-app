@@ -6,9 +6,9 @@ export default function Home() {
      <div>
       <form action="" method="post">
       <h2>Title</h2>
-      <input type="text" />
+      <input type="text" className="bg-white rounded-sm mb-10 text-black focus:ring-2 focus:ring-white/20" />
       <h2>Content</h2>
-      <input type="text" />
+      <textarea name="" id="" className="bg-white rounded-sm text-black w-full focus:ring-2 focus:ring-white/20" rows={4} ></textarea>
       </form>
      </div>
     </div>
