@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [title , setTitle]= useState("");
   const [content , setContent]= useState("");
-  const [notes , setNotes]= useState([]);
+  const [notes, setNotes] = useState<any[]>([]);
   async function getNotes() {
     const response = await fetch("/api/notes");
     const data = await response.json();
@@ -46,6 +46,16 @@ export default function Home() {
           </button>
       </form>
      </div>
+     <div className="mt-10">
+      <h2 className="">Notes</h2>
+      {Array.isArray(notes) && notes.map((note) => (
+  <div key={note.id}>
+    <h3 className="bg-red-500 text-center rounded-sm p-2 mb-5">{note.title}</h3>
+    <p className="bg-green-400 text-black p-1">{note.content}</p>
+  </div>
+))}
+     </div>
+     
     </div>
   );
 }
